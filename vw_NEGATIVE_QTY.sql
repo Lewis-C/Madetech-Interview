@@ -1,0 +1,11 @@
+DROP VIEW IF EXISTS "main"."vw_NEGATIVE_QTY";
+CREATE VIEW "vw_NEGATIVE_QTY" AS WITH C AS 
+(SELECT
+
+	*,
+	(Quantity * -1) AS 'CORRECTION'
+FROM SALES
+WHERE Quantity < 0)
+
+SELECT * FROM C
+LEFT JOIN SALES ON SALES.Quantity = C.Correction AND Sales.StockCode = C.StockCode
