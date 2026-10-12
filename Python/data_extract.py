@@ -32,10 +32,10 @@ source = source.replace(r'^\s*$', None, regex=True)
 
 source.to_sql(name="SALES", con=sql_connection, if_exists="replace", index=True, index_label="SaleID")
 
-dim_item = source[["StockCode","Description","UnitPrice"]].drop_duplicates()
+dim_item = source[["StockCode","Description"]].drop_duplicates()
 dim_item.to_sql(name="DIM_ITEM", con=sql_connection, if_exists="replace", index=False)
 
-fact_invoice = source[["StockCode","InvoiceNo","Quantity","TotalCost"]].drop_duplicates()
+fact_invoice = source[["StockCode","InvoiceNo","Quantity","TotalCost","UnitPrice"]].drop_duplicates()
 fact_invoice.to_sql(name="FACT_INVOICE", con=sql_connection, if_exists="replace", index=True, index_label="SaleID")
 
 dim_order = source[["InvoiceNo","InvoicePrefix","CustomerID","Country","InvoiceDate"]].drop_duplicates()

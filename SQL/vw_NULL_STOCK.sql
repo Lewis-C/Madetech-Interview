@@ -4,7 +4,7 @@ SELECT * FROM SALES
 WHERE Description IS NULL)
 
 
-SELECT DISTINCT SALES.StockCode, SALES.Description FROM SALES
+SELECT DISTINCT NULLS.StockCode, NULLS.Description, SALES.Description FROM NULLS
 INNER JOIN 
-NULLS ON substr(SALES.StockCode,1,5) = substr(NULLS.StockCode,1,5)
-ORDER BY SALES.StockCode DESC
+SALES ON SALES.StockCode = NULLS.StockCode
+--SALES ON substr(SALES.StockCode,1,5) = substr(NULLS.StockCode,1,5)
